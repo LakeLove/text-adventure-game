@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class TAG {
     public static void main(String[] args) {
         System.out.println(introduction());
-        World the_World = new World(); the_World.make_World();
+        World the_World = new World();
         while ((the_World.status).equals("playing")) {
             System.out.println(the_World.describe());
             String[] command_choices = the_World.get_choices();
