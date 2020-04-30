@@ -11,6 +11,8 @@ public class World {
         locations = new HashMap <> ();
         locations.put("yard", new Location("There are many weeds, surrounding a big spooky house."));
     }
-    public String describe() {return "We are playing the game.";}
+    public String describe() {
+        return String.format("You are at the %s.", you.at);
+    }
     public String[] get_choices() {return new String[]{"Quit", "Win", "Lose"};}
 }
