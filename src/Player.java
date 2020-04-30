@@ -1,6 +1,4 @@
 public class Player {
     String at;
-    public Player() {
-        at = "yard";
-    }
+    public Player() {at = "yard";}
 }

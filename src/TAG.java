@@ -4,14 +4,14 @@ import java.util.Scanner;
 public class TAG {
     public static void main(String[] args) {
         System.out.println(introduction());
-        World the_World = new World();
-        while ((the_World.status).equals("playing")) {
-            System.out.println(the_World.describe());
-            String[] command_choices = the_World.get_choices();
-            String command = choose(command_choices);
-            System.out.println(update(the_World, command));
+        World theWorld = new World();
+        while ((theWorld.status).equals("playing")) {
+            System.out.println(theWorld.describe());
+            String[] commandChoices = theWorld.getChoices();
+            String command = choose(commandChoices);
+            System.out.println(update(theWorld, command));
         }
-        System.out.println(describe_ending(the_World));
+        System.out.println(describeEnding(theWorld));
     }
     public static String introduction() {
         return "Working Title\nby Lake Greene\n\nWelcome home.";
@@ -19,12 +19,12 @@ public class TAG {
     public static String input() {
         Scanner scanner = new Scanner(System.in); return scanner.nextLine();
     }
-    public static String choose(String[] command_choices) {
+    public static String choose(String[] commandChoices) {
         System.out.println("You can: ");
-        for (String i : command_choices) {System.out.println("\t"+i);}
+        for (String i : commandChoices) {System.out.println("\t"+i);}
         System.out.println("What will you do?"); String command;
         do {command = input();}
-        while (Arrays.stream(command_choices).noneMatch(command::equals));
+        while (Arrays.stream(commandChoices).noneMatch(command::equals));
         return command;
     }
     public static String update(World world, String command) {
@@ -44,7 +44,7 @@ public class TAG {
     public static String lose(World world) {
         world.status = "losing"; return "You chose to lose the game.";
     }
-    public static String describe_ending(World world) {
+    public static String describeEnding(World world) {
         switch (world.status) {
             case "winning": return "You won the game!";
             case "losing": return "You lost the game!";

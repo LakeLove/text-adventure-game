@@ -14,5 +14,5 @@ public class World {
     public String describe() {
         return String.format("You are at the %s.", you.at);
     }
-    public String[] get_choices() {return new String[]{"Quit", "Win", "Lose"};}
+    public String[] getChoices() {return new String[]{"Quit", "Win", "Lose"};}
 }
