@@ -1,4 +1,4 @@
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TAG {
@@ -7,7 +7,7 @@ public class TAG {
         World theWorld = new World();
         while ((theWorld.status).equals("playing")) {
             System.out.println(theWorld.describe());
-            String[] commandChoices = theWorld.getChoices();
+            ArrayList<String> commandChoices = theWorld.getChoices(theWorld);
             String command = choose(commandChoices);
             System.out.println(update(theWorld, command));
         }
@@ -19,12 +19,12 @@ public class TAG {
     public static String input() {
         Scanner scanner = new Scanner(System.in); return scanner.nextLine();
     }
-    public static String choose(String[] commandChoices) {
+    public static String choose(ArrayList<String> commandChoices) {
         System.out.println("You can: ");
-        for (String i : commandChoices) {System.out.println("\t"+i);}
+        for (Object i : commandChoices) {System.out.println("\t"+i);}
         System.out.println("What will you do?"); String command;
         do {command = input();}
-        while (Arrays.stream(commandChoices).noneMatch(command::equals));
+        while (!(commandChoices.contains(command)));
         return command;
     }
     public static String update(World world, String command) {
