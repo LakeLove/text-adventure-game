@@ -28,21 +28,29 @@ public class TAG {
         return command;
     }
     public static String update(World world, String command) {
-        switch (command) {
-            case "Quit": return quit(world);
-            case "Win": return win(world);
-            case "Lose": return lose(world);
+        String commandVerb = getCommandVerb(command);
+        switch (commandVerb) {
+            case "quit": return quit(world);
+            case "look": return look(world, command);
             default: return "Error";
         }
+    }
+    public static String getCommandVerb(String command){
+        String[] words = command.split(" ", 2);
+        String verb = words[0];
+        return verb.toLowerCase();
     }
     public static String quit(World world) {
         world.status = "quitting"; return "You chose to quit the game.";
     }
-    public static String win(World world) {
-        world.status = "winning"; return "You chose to win the game.";
+    public static String look(World world, String command) {
+        String lookingAt = chomp(command, "look at ");
+        Location location = world.locations.get(lookingAt);
+        System.out.println(lookingAt);
+        return location.about;
     }
-    public static String lose(World world) {
-        world.status = "losing"; return "You chose to lose the game.";
+    public static String chomp(String original, String part) {
+        return original.substring(part.length());
     }
     public static String describeEnding(World world) {
         switch (world.status) {
