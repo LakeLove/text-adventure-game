@@ -1,27 +1,61 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class World {
     String status;
     Player you;
     HashMap <String, Location> locations;
-
     public World() {
         status = "playing";
         you = new Player();
         locations = new HashMap <> ();
         locations.put("yard", new Location("There are many weeds, surrounding a big spooky house."));
     }
-    public String describe() {
+    static String update(World world, String command) {
+        String commandVerb = TAG.getCommandVerb(command);
+        switch (commandVerb) {
+            case "quit": return quit(world);
+            case "look": return look(world, command);
+            default: return "Error";
+        }
+    }
+
+    static String look(World world, String command) {
+        String lookingAt = TAG.chomp(command, "look at ");
+        Location location = world.locations.get(lookingAt);
+        return location.about;
+    }
+
+    static String quit(World world) {
+        world.status = "quitting"; return "You chose to quit the game.";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof World)) return false;
+        World world = (World) o;
+        return status.equals(world.status) &&
+                you.equals(world.you) &&
+                locations.equals(world.locations);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(status, you, locations);
+    }
+
+    String describe() {
         return String.format("You are at the %s.", you.at);
     }
-    public ArrayList<String> getChoices(World world) {
+    ArrayList<String> getChoices(World world) {
         ArrayList<String> choices = new ArrayList<>();
         choices.add("Quit");
         choices.add(getLookChoices(world));
         return choices;
     }
-    public String getLookChoices(World world) {
+    String getLookChoices(World world) {
         String yourLocation = world.you.at;
         return "Look at " + yourLocation;
     }
