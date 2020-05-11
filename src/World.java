@@ -46,10 +46,12 @@ public class World {
     public int hashCode() {
         return Objects.hash(status, you, locations);
     }
+
     String describe() {
         return String.format("You are at the %s.", you.at);
     }
-    ArrayList<String> getChoices(World world) {
+
+    static ArrayList<String> getChoices(World world) {
         ArrayList<String> choices = new ArrayList<>();
         choices.add("Quit");
         choices.add(getLookChoices(world));
@@ -57,12 +59,12 @@ public class World {
         return choices;
     }
 
-    String getLookChoices(World world) {
+    static String getLookChoices(World world) {
         String yourLocation = world.you.at;
         return "Look at " + yourLocation;
     }
 
-    ArrayList<String> getGoChoices(World world) {
+    static ArrayList<String> getGoChoices(World world) {
         ArrayList<String> choices = new ArrayList<>();
         HashMap<String, Location> possibleLocations = world.locations;
         for (Object locationName : possibleLocations.keySet()) {
