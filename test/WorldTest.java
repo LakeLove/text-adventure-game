@@ -14,7 +14,6 @@ public class WorldTest {
         Assert.assertTrue(test_World.locations.containsKey("upstairs"));
         assertEquals(5, test_World.locations.size());
     }
-
     @Test
     public void describe_LocationYard() {
         World test_World = new World();
@@ -22,7 +21,6 @@ public class WorldTest {
         String actualResult = test_World.describe();
         assertEquals(expectedResult, actualResult);
     }
-
     @Test
     public void getChoices_AllChoices() {
         World test_World = new World();
@@ -35,7 +33,6 @@ public class WorldTest {
         Assert.assertTrue(World.getChoices(test_World).contains("Go to upstairs"));
         assertEquals(7, World.getChoices(test_World).size());
     }
-
     @Test
     public void getLookChoices_LocationYard() {
         World test_World = new World();
@@ -43,7 +40,6 @@ public class WorldTest {
         String actualResult = World.getLookChoices(test_World);
         assertEquals(expectedResult, actualResult);
     }
-
     @Test
     public void getGoChoices_AllLocations() {
         World test_World = new World();
@@ -54,7 +50,6 @@ public class WorldTest {
         Assert.assertTrue(World.getGoChoices(test_World).contains("Go to upstairs"));
         assertEquals(5, World.getGoChoices(test_World).size());
     }
-
     @Test
     public void update_LocationYard_StatusQuitting() {
         World test_World = new World();

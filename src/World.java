@@ -17,22 +17,38 @@ public class World {
         locations.put("dining room", new Location("There are appears to be old, rotting food on the table."));
         locations.put("upstairs", new Location("There is a locked door."));
     }
+
     static String update(World world, String command) {
         String commandVerb = TAG.getCommandVerb(command);
         switch (commandVerb) {
-            case "quit": return quit(world);
-            case "look": return look(world, command);
-            default: return "Error";
+            case "quit":
+                return quit(world);
+            case "look":
+                return look(world, command);
+            case "go":
+                return go(world, command);
+            default:
+                return "Error";
         }
     }
+
+    static String quit(World world) {
+        world.status = "quitting";
+        return "You chose to quit the game.";
+    }
+
     static String look(World world, String command) {
         String lookingAt = TAG.chomp(command, "look at ");
         Location location = world.locations.get(lookingAt);
         return location.about;
     }
-    static String quit(World world) {
-        world.status = "quitting"; return "You chose to quit the game.";
+
+    static String go(World world, String command) {
+        String newLocation = TAG.chomp(command, "go to ");
+        world.you.at = newLocation;
+        return "You went to " + newLocation;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
