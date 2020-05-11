@@ -5,7 +5,8 @@ import java.util.Objects;
 public class World {
     String status;
     Player you;
-    HashMap <String, Location> locations;
+    HashMap<String, Location> locations;
+
     public World() {
         status = "playing";
         you = new Player();
@@ -24,17 +25,14 @@ public class World {
             default: return "Error";
         }
     }
-
     static String look(World world, String command) {
         String lookingAt = TAG.chomp(command, "look at ");
         Location location = world.locations.get(lookingAt);
         return location.about;
     }
-
     static String quit(World world) {
         world.status = "quitting"; return "You chose to quit the game.";
     }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -44,12 +42,10 @@ public class World {
                 you.equals(world.you) &&
                 locations.equals(world.locations);
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(status, you, locations);
     }
-
     String describe() {
         return String.format("You are at the %s.", you.at);
     }
@@ -57,10 +53,21 @@ public class World {
         ArrayList<String> choices = new ArrayList<>();
         choices.add("Quit");
         choices.add(getLookChoices(world));
+        choices.addAll(getGoChoices(world));
         return choices;
     }
+
     String getLookChoices(World world) {
         String yourLocation = world.you.at;
         return "Look at " + yourLocation;
+    }
+
+    ArrayList<String> getGoChoices(World world) {
+        ArrayList<String> choices = new ArrayList<>();
+        HashMap<String, Location> possibleLocations = world.locations;
+        for (Object locationName : possibleLocations.keySet()) {
+            choices.add("Go to " + locationName);
+        }
+        return choices;
     }
 }
