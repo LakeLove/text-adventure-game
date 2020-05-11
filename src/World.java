@@ -9,8 +9,12 @@ public class World {
     public World() {
         status = "playing";
         you = new Player();
-        locations = new HashMap <> ();
+        locations = new HashMap<>();
         locations.put("yard", new Location("There are many weeds, surrounding a big spooky house."));
+        locations.put("woods", new Location("It is dark here. You are likely to be eaten by a grue."));
+        locations.put("entrance", new Location("You see stairs, and what appears to be a dining room."));
+        locations.put("dining room", new Location("There are appears to be old, rotting food on the table."));
+        locations.put("upstairs", new Location("There is a locked door."));
     }
     static String update(World world, String command) {
         String commandVerb = TAG.getCommandVerb(command);
