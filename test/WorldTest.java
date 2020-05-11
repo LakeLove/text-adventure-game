@@ -1,3 +1,4 @@
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -6,12 +7,48 @@ import static org.junit.Assert.assertEquals;
 
 public class WorldTest {
     @Test
+    public void world_LocationYard() {
+        World test_World = new World();
+        boolean test_Input = test_World.locations.containsKey("yard");
+        Assert.assertTrue(test_Input);
+    }
+
+    @Test
+    public void world_LocationWoods() {
+        World test_World = new World();
+        boolean test_Input = test_World.locations.containsKey("woods");
+        Assert.assertTrue(test_Input);
+    }
+
+    @Test
+    public void world_LocationEntrance() {
+        World test_World = new World();
+        boolean test_Input = test_World.locations.containsKey("entrance");
+        Assert.assertTrue(test_Input);
+    }
+
+    @Test
+    public void world_LocationDiningRoom() {
+        World test_World = new World();
+        boolean test_Input = test_World.locations.containsKey("dining room");
+        Assert.assertTrue(test_Input);
+    }
+
+    @Test
+    public void world_LocationUpstairs() {
+        World test_World = new World();
+        boolean test_Input = test_World.locations.containsKey("upstairs");
+        Assert.assertTrue(test_Input);
+    }
+
+    @Test
     public void describe_LocationYard() {
         World test_World = new World();
         String expectedResult = "You are at the yard.";
         String actualResult = test_World.describe();
         assertEquals(expectedResult, actualResult);
     }
+
     @Test
     public void getChoices_LocationYard() {
         World test_World = new World();
