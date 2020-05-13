@@ -16,51 +16,66 @@ public class World {
 		locations.put("dining room", new Location("There are appears to be old, rotting food on the table."));
 		locations.put("upstairs", new Location("There is a locked door."));
 	}
-	static String update(World world, String command) {
+	String update(String command) {
 		String commandVerb = TAG.getCommandVerb(command);
 		switch (commandVerb) {
 			case "quit":
-				return quit(world);
+				return quit();
 			case "look":
-				return look(world, command);
+				return look(command);
 			case "go":
-				return go(world, command);
+				return go(command);
 			default:
 				return "Error";
 		}
 	}
-	static String quit(World world) {
-		world.status = "quitting";
+	String quit() {
+		status = "quitting";
 		return "You chose to quit the game.";
 	}
-	static String look(World world, String command) {
+	String look(String command) {
 		String lookingAt = TAG.chomp(command, "look at ");
-		Location location = world.locations.get(lookingAt);
+		Location location = locations.get(lookingAt);
 		return location.about;
 	}
-	static String go(World world, String command) {
+	String go(String command) {
 		String newLocation = TAG.chomp(command, "go to ");
-		world.you.at = newLocation;
+		you.at = newLocation;
 		return "You went to " + newLocation;
 	}
-	static ArrayList<String> getChoices(World world) {
+	ArrayList<String> getChoices() {
 		ArrayList<String> choices = new ArrayList<>();
 		choices.add("Quit");
-		choices.add(getLookChoices(world));
-		choices.addAll(getGoChoices(world));
+		choices.add(getLookChoices());
+		choices.addAll(getGoChoices());
 		return choices;
 	}
-	static String getLookChoices(World world) {
-		String yourLocation = world.you.at;
+	String getLookChoices() {
+		String yourLocation = you.at;
 		return "Look at " + yourLocation;
 	}
-	static ArrayList<String> getGoChoices(World world) {
+	ArrayList<String> getGoChoices() {
 		ArrayList<String> choices = new ArrayList<>();
-		HashMap<String, Location> possibleLocations = world.locations;
+		HashMap<String, Location> possibleLocations = locations;
 		for (Object locationName : possibleLocations.keySet()) {
 			choices.add("Go to " + locationName);
 		}
 		return choices;
+	}
+	String describe() {
+		return String.format("You are at the %s.", you.at);
+	}
+	String describeEnding() {
+		switch (status) {
+			case "winning":
+				return "You won the game!";
+			case "losing":
+				return "You lost the game!";
+			case "quitting":
+				return "You quit the game.";
+			default:
+				return "Error";
+		}
 	}
 	@Override
 	public boolean equals(Object o) {

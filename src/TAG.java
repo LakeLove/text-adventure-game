@@ -7,11 +7,11 @@ public class TAG {
         World theWorld = new World();
         while ((theWorld.status).equals("playing")) {
             System.out.println(theWorld.describe());
-            ArrayList<String> commandChoices = theWorld.getChoices(theWorld);
+            ArrayList<String> commandChoices = theWorld.getChoices();
             String command = choose(commandChoices);
-            System.out.println(World.update(theWorld, command));
+            System.out.println(theWorld.update(command));
         }
-        System.out.println(describeEnding(theWorld));
+        System.out.println(theWorld.describeEnding());
     }
     static String introduction() {
         return "Working Title\nby Lake Greene\n\nWelcome home.";
@@ -34,13 +34,5 @@ public class TAG {
     }
     static String chomp(String original, String part) {
         return original.substring(part.length());
-    }
-    static String describeEnding(World world) {
-        switch (world.status) {
-            case "winning": return "You won the game!";
-            case "losing": return "You lost the game!";
-            case "quitting": return "You quit the game.";
-            default: return "Error";
-        }
     }
 }
