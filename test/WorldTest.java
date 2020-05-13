@@ -1,6 +1,8 @@
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.assertEquals;
 
 public class WorldTest {
@@ -62,16 +64,16 @@ public class WorldTest {
 		assertEquals("woods", test_World.you.at);
 	}
 	@Test
-	public void getChoices_AllChoices() {
+	public void getChoices_LocationUpstairs() {
 		World test_World = new World();
-		Assert.assertTrue(test_World.getChoices().contains("Quit"));
-		Assert.assertTrue(test_World.getChoices().contains("Look at yard"));
-		Assert.assertTrue(test_World.getChoices().contains("Go to yard"));
-		Assert.assertTrue(test_World.getChoices().contains("Go to woods"));
-		Assert.assertTrue(test_World.getChoices().contains("Go to entrance"));
-		Assert.assertTrue(test_World.getChoices().contains("Go to dining room"));
-		Assert.assertTrue(test_World.getChoices().contains("Go to upstairs"));
-		assertEquals(7, test_World.getChoices().size());
+		test_World.you.at = "upstairs";
+		ArrayList<String> expectedResult = new ArrayList<>();
+		expectedResult.add("Quit");
+		expectedResult.add("Look at upstairs");
+		expectedResult.add("Go to entrance");
+		ArrayList<String> actualResult = test_World.getChoices();
+		assertEquals(expectedResult, actualResult);
+		assertEquals(3, test_World.getChoices().size());
 	}
 	@Test
 	public void getLookChoices_LocationYard() {
@@ -81,14 +83,33 @@ public class WorldTest {
 		assertEquals(expectedResult, actualResult);
 	}
 	@Test
-	public void getGoChoices_AllLocations() {
+	public void getGoChoices_LocationYard() {
 		World test_World = new World();
-		Assert.assertTrue(test_World.getGoChoices().contains("Go to yard"));
-		Assert.assertTrue(test_World.getGoChoices().contains("Go to woods"));
-		Assert.assertTrue(test_World.getGoChoices().contains("Go to entrance"));
-		Assert.assertTrue(test_World.getGoChoices().contains("Go to dining room"));
-		Assert.assertTrue(test_World.getGoChoices().contains("Go to upstairs"));
-		assertEquals(5, test_World.getGoChoices().size());
+		ArrayList<String> expectedResult = new ArrayList<>();
+		expectedResult.add("Go to woods");
+		expectedResult.add("Go to entrance");
+		ArrayList<String> actualResult = test_World.getGoChoices();
+		assertEquals(expectedResult, actualResult);
+	}
+	@Test
+	public void getGoChoices_LocationWoods() {
+		World test_World = new World();
+		test_World.you.at = "woods";
+		ArrayList<String> expectedResult = new ArrayList<>();
+		expectedResult.add("Go to yard");
+		ArrayList<String> actualResult = test_World.getGoChoices();
+		assertEquals(expectedResult, actualResult);
+	}
+	@Test
+	public void getGoChoices_LocationEntrance() {
+		World test_World = new World();
+		test_World.you.at = "entrance";
+		ArrayList<String> expectedResult = new ArrayList<>();
+		expectedResult.add("Go to yard");
+		expectedResult.add("Go to dining room");
+		expectedResult.add("Go to upstairs");
+		ArrayList<String> actualResult = test_World.getGoChoices();
+		assertEquals(expectedResult, actualResult);
 	}
 	@Test
 	public void describe_LocationYard() {

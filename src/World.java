@@ -59,9 +59,11 @@ public class World {
 		return "Look at " + yourLocation;
 	}
 	ArrayList<String> getGoChoices() {
+		String currentLocationName = you.at;
+		Location currentLocation = locations.get(currentLocationName);
+		String[] possibleLocations = currentLocation.neighbors;
 		ArrayList<String> choices = new ArrayList<>();
-		HashMap<String, Location> possibleLocations = locations;
-		for (Object locationName : possibleLocations.keySet()) {
+		for (Object locationName : possibleLocations) {
 			choices.add("Go to " + locationName);
 		}
 		return choices;
@@ -93,4 +95,3 @@ public class World {
 		return Objects.hash(status, you, locations);
 	}
 }
-//foreach string[]
