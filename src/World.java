@@ -10,11 +10,15 @@ public class World {
 		status = "playing";
 		you = new Player();
 		locations = new HashMap<>();
-		locations.put("yard", new Location("There are many weeds, surrounding a big spooky house."));
-		locations.put("woods", new Location("It is dark here. You are likely to be eaten by a grue."));
-		locations.put("entrance", new Location("You see stairs, and what appears to be a dining room."));
-		locations.put("dining room", new Location("There are appears to be old, rotting food on the table."));
-		locations.put("upstairs", new Location("There is a locked door."));
+		locations.put("yard", new Location("There are many weeds, surrounding a big spooky house.", new String[] {
+				"woods", "entrance"}));
+		locations.put("woods", new Location("It is dark here. You are likely to be eaten by a grue.", new String[] {
+				"yard"}));
+		locations.put("entrance", new Location("You see stairs, and what appears to be a dining room.", new String[] {
+				"yard", "dining room", "upstairs"}));
+		locations.put("dining room", new Location("There are appears to be old, rotting food on the table.",
+				new String[] {"entrance"}));
+		locations.put("upstairs", new Location("There is a locked door.", new String[] {"entrance"}));
 	}
 	String update(String command) {
 		String commandVerb = TAG.getCommandVerb(command);
@@ -88,7 +92,5 @@ public class World {
 	public int hashCode() {
 		return Objects.hash(status, you, locations);
 	}
-	String describe() {
-		return String.format("You are at the %s.", you.at);
-	}
 }
+//foreach string[]
